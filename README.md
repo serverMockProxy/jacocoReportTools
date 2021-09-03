@@ -22,5 +22,12 @@
 1.serverhost：平台服务地址  
 2.projectname：被测项目在gitlab中的路径，如：https://localhost/test/skatoolsserver  
 3.uploadtime：上传exec文件间隔时间（分钟）
-4.还可以添加其他的jacoco的参数，如include等，具体可以搜一下。         
+4.还可以添加其他的jacoco的参数，如include等，具体可以搜一下。      
+## 前端配置页面
+1.单模块项目，不需要配置子模块gitId  
+2.多模块项目，如果要统计子模块覆盖率，需要配置对应子模块的gitId  
+![image](https://user-images.githubusercontent.com/31475053/131991245-4be63b1a-09e6-41a8-9250-f2dc9d0acd93.png)  
+![image](https://user-images.githubusercontent.com/31475053/131991473-0790381c-047b-464f-bb86-9f02603d8a36.png)  
+
+
      
