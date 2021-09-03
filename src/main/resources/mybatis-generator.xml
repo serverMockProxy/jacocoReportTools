@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://" userId="" password=""/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- !!!! Model Configurations !!!! -->
+        <javaModelGenerator targetPackage="com.apiProxy.mbg.po" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- !!!! Mapper XML Configurations !!!! -->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources/com/apiProxy/mbg">
+            <property name="enableSubPackages" value="true"/>
+
+        </sqlMapGenerator>
+
+        <!-- !!!! Mapper Interface Configurations !!!! -->
+        <javaClientGenerator targetPackage="com.apiProxy.mbg.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- !!!! Table Configurations !!!! -->
+<!--        <table tableName="apiInfo" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--            <columnOverride column="api_headers" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="json_body" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="query_body" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+        <table tableName="project" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               enableUpdateByExample="true">
+        </table>
+<!--        <table tableName="proxy_config" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--            <columnOverride column="callback_headers" javaType="java.util.List" jdbcType="VARCHAR" typeHandler="com.apiProxy.typehandler.ApiHeadersListTypeHandler"/>-->
+<!--            <columnOverride column="callback_request_json" javaType="java.util.List" jdbcType="VARCHAR" typeHandler="com.apiProxy.typehandler.JsonBodyListTypeHandler"/>-->
+<!--            <columnOverride column="callback_request_query" javaType="java.util.List" jdbcType="VARCHAR" typeHandler="com.apiProxy.typehandler.QueryBodyListTypeHandler"/>-->
+<!--            <columnOverride column="callback_request_form" javaType="java.util.List" jdbcType="VARCHAR" typeHandler="com.apiProxy.typehandler.QueryBodyListTypeHandler"/>-->
+<!--            <columnOverride column="mock_requir" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="mock_response" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--        <table tableName="proxy_details" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--            <columnOverride column="request_json" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--            <columnOverride column="response_json" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--            <columnOverride column="callback_request_json" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--            <columnOverride column="callback_response_json" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--        </table>-->
+<!--        <table tableName="jacoco" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--            <columnOverride column="childrens" javaType="java.util.List" jdbcType="VARCHAR" typeHandler="com.apiProxy.typehandler.JacocoListTypeHandler"/>-->
+<!--        </table>-->
+    </context>
+</generatorConfiguration>

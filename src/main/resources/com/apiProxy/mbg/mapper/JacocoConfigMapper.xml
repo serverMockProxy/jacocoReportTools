@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apiProxy.mbg.mapper.JacocoConfigMapper">
+  <resultMap id="BaseResultMap" type="com.apiProxy.mbg.po.JacocoConfig">
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="git_id" jdbcType="INTEGER" property="gitId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="children" jdbcType="VARCHAR" property="children" typeHandler="com.apiProxy.typehandler.JacocoConfigListTypeHandler" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.childrenCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.childrenCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    project_id, git_id, description, children
+  </sql>
+  <select id="selectByExample" parameterType="com.apiProxy.mbg.po.JacocoConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jacoco_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jacoco_config
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByExample" parameterType="com.apiProxy.mbg.po.JacocoConfigExample">
+    delete from jacoco_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.apiProxy.mbg.po.JacocoConfig">
+    insert into jacoco_config (project_id, git_id, description,
+      children
+      )
+    values (#{projectId,jdbcType=INTEGER}, #{gitId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
+      #{children,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.apiProxy.mbg.po.JacocoConfig">
+    insert into jacoco_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="gitId != null">
+        git_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="children != null">
+        children,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="gitId != null">
+        #{gitId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="children != null">
+        #{children,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.apiProxy.mbg.po.JacocoConfigExample" resultType="java.lang.Long">
+    select count(*) from jacoco_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update jacoco_config
+    <set>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gitId != null">
+        git_id = #{record.gitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.children != null">
+        children = #{record.children,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update jacoco_config
+    set project_id = #{record.projectId,jdbcType=INTEGER},
+      git_id = #{record.gitId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      children = #{record.children,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.apiProxy.mbg.po.JacocoConfig">
+    update jacoco_config
+    set git_id = #{gitId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      children = #{children,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoConfigListTypeHandler}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+</mapper>

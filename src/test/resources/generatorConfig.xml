@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <commentGenerator type="test.CommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/daxiang"
+                        userId="root"
+                        password="rootroot">
+        </jdbcConnection>
+
+        <javaTypeResolver type="test.MyJavaTypeResolver">
+            <property name="forceBigDecimals" value="false"></property>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.apiProxy.mbg.po" targetProject="/Users/hem/IdeaProjects/proxy/server/src/main/java"/>
+        <sqlMapGenerator targetPackage="com.apiProxy.mbg.mapper" targetProject="/Users/hem/IdeaProjects/proxy/server/src/main/resources"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.apiProxy.mbg.mapper" targetProject="/Users/hem/IdeaProjects/proxy/server/src/main/java"/>
+
+        <!--<table tableName="action">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="steps" typeHandler="com.apiProxy.typehandler.StepListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.action.Step&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="params" typeHandler="com.apiProxy.typehandler.ParamListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.action.Param&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="local_vars" typeHandler="com.apiProxy.typehandler.LocalVarListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.action.LocalVar&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="java_imports" typeHandler="com.apiProxy.typehandler.StringListTypeHandler" javaType="java.util.List&lt;String&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="action_imports" typeHandler="com.apiProxy.typehandler.IntegerListTypeHandler" javaType="java.util.List&lt;Integer&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="platforms" typeHandler="com.apiProxy.typehandler.IntegerListTypeHandler" javaType="java.util.List&lt;Integer&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="depends" typeHandler="com.apiProxy.typehandler.IntegerListTypeHandler" javaType="java.util.List&lt;Integer&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="app">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <table tableName="category">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <!--<table tableName="mobile">-->
+        <!--</table>-->
+        <!--<table tableName="browser">-->
+        <!--</table>-->
+        <!--<table tableName="device_test_task">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="test_plan" typeHandler="com.apiProxy.typehandler.TestPlanTypeHandler" javaType="com.apiProxy.mbg.po.TestPlan" jdbcType="LONGVARCHAR" />-->
+            <!--<columnOverride column="device" typeHandler="com.apiProxy.typehandler.JSONObjectTypeHandler" javaType="com.alibaba.fastjson.JSONObject" jdbcType="LONGVARCHAR" />-->
+            <!--<columnOverride column="global_vars" typeHandler="com.apiProxy.typehandler.GlobalVarListTypeHandler" javaType="java.util.List&lt;com.apiProxy.mbg.po.GlobalVar&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="pages" typeHandler="com.apiProxy.typehandler.PageListTypeHandler" javaType="java.util.List&lt;com.apiProxy.mbg.po.Page&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="before_class" typeHandler="com.apiProxy.typehandler.ActionTypeHandler" javaType="com.apiProxy.mbg.po.Action" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="before_method" typeHandler="com.apiProxy.typehandler.ActionTypeHandler" javaType="com.apiProxy.mbg.po.Action" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="after_class" typeHandler="com.apiProxy.typehandler.ActionTypeHandler" javaType="com.apiProxy.mbg.po.Action" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="after_method" typeHandler="com.apiProxy.typehandler.ActionTypeHandler" javaType="com.apiProxy.mbg.po.Action" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="testcases" typeHandler="com.apiProxy.typehandler.TestcaseListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.dto.Testcase&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="global_var">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="environment_values" typeHandler="com.apiProxy.typehandler.EnvironmentValueListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.environment.EnvironmentValue&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="page">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="elements" typeHandler="com.apiProxy.typehandler.ElementListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.page.Element&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="bys" typeHandler="com.apiProxy.typehandler.ByListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.page.By&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="project">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="test_plan">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="test_suites" typeHandler="com.apiProxy.typehandler.IntegerListTypeHandler" javaType="java.util.List&lt;Integer&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="device_ids" typeHandler="com.apiProxy.typehandler.StringListTypeHandler" javaType="java.util.List&lt;String&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="test_suite">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="testcases" typeHandler="com.apiProxy.typehandler.IntegerListTypeHandler" javaType="java.util.List&lt;Integer&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="test_task">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="test_plan" typeHandler="com.apiProxy.typehandler.TestPlanTypeHandler" javaType="com.apiProxy.mbg.po.TestPlan" jdbcType="LONGVARCHAR" />-->
+        <!--</table>-->
+        <!--<table tableName="user">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="role">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="user_role">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="user_project">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="driver">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+            <!--<columnOverride column="files" typeHandler="com.apiProxy.typehandler.DriverFileListTypeHandler" javaType="java.util.List&lt;com.apiProxy.model.dto.DriverFile&gt;" jdbcType="LONGVARCHAR"/>-->
+            <!--<columnOverride column="device_ids" typeHandler="com.apiProxy.typehandler.StringListTypeHandler" javaType="java.util.List&lt;String&gt;" jdbcType="LONGVARCHAR"/>-->
+        <!--</table>-->
+        <!--<table tableName="environment">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

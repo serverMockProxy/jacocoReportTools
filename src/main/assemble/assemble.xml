@@ -1,0 +1,37 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3
+                        http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+    <id>package</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <fileMode>0444</fileMode>
+            <excludes>
+                <exclude>${project.groupId}:${project.artifactId}</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+    <files>
+        <file>
+            <source>target/${project.artifactId}-${project.version}.jar</source>
+            <destName>main.jar</destName>
+            <fileMode>0444</fileMode>
+        </file>
+    </files>
+
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/frontend</directory>  <!-- 包含当前工程的目录src/main/resources文件夹 -->
+            <outputDirectory>/static/frontend</outputDirectory>  <!-- 输出到首层目录 -->
+            <fileMode>0777</fileMode> <!-- 所有文件文件权限为777 -->
+            <directoryMode>0755</directoryMode> <!-- 所有目录权限为777  -->
+        </fileSet>
+    </fileSets>
+</assembly>

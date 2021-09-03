@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apiProxy.mbg.mapper.JacocoMapper">
+  <resultMap id="BaseResultMap" type="com.apiProxy.mbg.po.Jacoco">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="gitlab_id" jdbcType="INTEGER" property="gitlabId" />
+    <result column="gitclone_path" jdbcType="VARCHAR" property="gitclonePath" />
+    <result column="jacoco_project_name" jdbcType="VARCHAR" property="jacocoProjectName" />
+    <result column="childrens" jdbcType="VARCHAR" property="childrens" typeHandler="com.apiProxy.typehandler.JacocoListTypeHandler" />
+    <result column="compare_type" jdbcType="INTEGER" property="compareType" />
+    <result column="current_branch" jdbcType="VARCHAR" property="currentBranch" />
+    <result column="compare_branch" jdbcType="VARCHAR" property="compareBranch" />
+    <result column="current_commit" jdbcType="VARCHAR" property="currentCommit" />
+    <result column="compare_commit" jdbcType="VARCHAR" property="compareCommit" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="report_path" jdbcType="VARCHAR" property="reportPath" />
+    <result column="task_status" jdbcType="INTEGER" property="taskStatus" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.childrensCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.childrensCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, project_id, gitlab_id, gitclone_path, jacoco_project_name, childrens, compare_type,
+    current_branch, compare_branch, current_commit, compare_commit, start_time, end_time,
+    report_path, task_status, description
+  </sql>
+  <select id="selectByExample" parameterType="com.apiProxy.mbg.po.JacocoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jacoco
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.apiProxy.mbg.po.JacocoExample">
+    delete from jacoco
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.apiProxy.mbg.po.Jacoco">
+    insert into jacoco (id, project_id, gitlab_id,
+      gitclone_path, jacoco_project_name, childrens,
+      compare_type, current_branch, compare_branch,
+      current_commit, compare_commit, start_time,
+      end_time, report_path, task_status,
+      description)
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{gitlabId,jdbcType=INTEGER},
+      #{gitclonePath,jdbcType=VARCHAR}, #{jacocoProjectName,jdbcType=VARCHAR}, #{childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      #{compareType,jdbcType=INTEGER}, #{currentBranch,jdbcType=VARCHAR}, #{compareBranch,jdbcType=VARCHAR},
+      #{currentCommit,jdbcType=VARCHAR}, #{compareCommit,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{reportPath,jdbcType=VARCHAR}, #{taskStatus,jdbcType=INTEGER},
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jacoco
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jacoco
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.apiProxy.mbg.po.Jacoco">
+    insert into jacoco
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="gitlabId != null">
+        gitlab_id,
+      </if>
+      <if test="gitclonePath != null">
+        gitclone_path,
+      </if>
+      <if test="jacocoProjectName != null">
+        jacoco_project_name,
+      </if>
+      <if test="childrens != null">
+        childrens,
+      </if>
+      <if test="compareType != null">
+        compare_type,
+      </if>
+      <if test="currentBranch != null">
+        current_branch,
+      </if>
+      <if test="compareBranch != null">
+        compare_branch,
+      </if>
+      <if test="currentCommit != null">
+        current_commit,
+      </if>
+      <if test="compareCommit != null">
+        compare_commit,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="reportPath != null">
+        report_path,
+      </if>
+      <if test="taskStatus != null">
+        task_status,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="gitlabId != null">
+        #{gitlabId,jdbcType=INTEGER},
+      </if>
+      <if test="gitclonePath != null">
+        #{gitclonePath,jdbcType=VARCHAR},
+      </if>
+      <if test="jacocoProjectName != null">
+        #{jacocoProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="childrens != null">
+        #{childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      </if>
+      <if test="compareType != null">
+        #{compareType,jdbcType=INTEGER},
+      </if>
+      <if test="currentBranch != null">
+        #{currentBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="compareBranch != null">
+        #{compareBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCommit != null">
+        #{currentCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="compareCommit != null">
+        #{compareCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportPath != null">
+        #{reportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.apiProxy.mbg.po.JacocoExample" resultType="java.lang.Long">
+    select count(*) from jacoco
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update jacoco
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gitlabId != null">
+        gitlab_id = #{record.gitlabId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gitclonePath != null">
+        gitclone_path = #{record.gitclonePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jacocoProjectName != null">
+        jacoco_project_name = #{record.jacocoProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childrens != null">
+        childrens = #{record.childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      </if>
+      <if test="record.compareType != null">
+        compare_type = #{record.compareType,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentBranch != null">
+        current_branch = #{record.currentBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compareBranch != null">
+        compare_branch = #{record.compareBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentCommit != null">
+        current_commit = #{record.currentCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compareCommit != null">
+        compare_commit = #{record.compareCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reportPath != null">
+        report_path = #{record.reportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null">
+        task_status = #{record.taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update jacoco
+    set id = #{record.id,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      gitlab_id = #{record.gitlabId,jdbcType=INTEGER},
+      gitclone_path = #{record.gitclonePath,jdbcType=VARCHAR},
+      jacoco_project_name = #{record.jacocoProjectName,jdbcType=VARCHAR},
+      childrens = #{record.childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      compare_type = #{record.compareType,jdbcType=INTEGER},
+      current_branch = #{record.currentBranch,jdbcType=VARCHAR},
+      compare_branch = #{record.compareBranch,jdbcType=VARCHAR},
+      current_commit = #{record.currentCommit,jdbcType=VARCHAR},
+      compare_commit = #{record.compareCommit,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      report_path = #{record.reportPath,jdbcType=VARCHAR},
+      task_status = #{record.taskStatus,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.apiProxy.mbg.po.Jacoco">
+    update jacoco
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="gitlabId != null">
+        gitlab_id = #{gitlabId,jdbcType=INTEGER},
+      </if>
+      <if test="gitclonePath != null">
+        gitclone_path = #{gitclonePath,jdbcType=VARCHAR},
+      </if>
+      <if test="jacocoProjectName != null">
+        jacoco_project_name = #{jacocoProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="childrens != null">
+        childrens = #{childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      </if>
+      <if test="compareType != null">
+        compare_type = #{compareType,jdbcType=INTEGER},
+      </if>
+      <if test="currentBranch != null">
+        current_branch = #{currentBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="compareBranch != null">
+        compare_branch = #{compareBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCommit != null">
+        current_commit = #{currentCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="compareCommit != null">
+        compare_commit = #{compareCommit,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportPath != null">
+        report_path = #{reportPath,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        task_status = #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.apiProxy.mbg.po.Jacoco">
+    update jacoco
+    set project_id = #{projectId,jdbcType=INTEGER},
+      gitlab_id = #{gitlabId,jdbcType=INTEGER},
+      gitclone_path = #{gitclonePath,jdbcType=VARCHAR},
+      jacoco_project_name = #{jacocoProjectName,jdbcType=VARCHAR},
+      childrens = #{childrens,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JacocoListTypeHandler},
+      compare_type = #{compareType,jdbcType=INTEGER},
+      current_branch = #{currentBranch,jdbcType=VARCHAR},
+      compare_branch = #{compareBranch,jdbcType=VARCHAR},
+      current_commit = #{currentCommit,jdbcType=VARCHAR},
+      compare_commit = #{compareCommit,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      report_path = #{reportPath,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apiProxy.mbg.mapper.ProxyConfigMapper">
+  <resultMap id="BaseResultMap" type="com.apiProxy.mbg.po.ProxyConfig">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="intercept_path" jdbcType="VARCHAR" property="interceptPath" />
+    <result column="forward_host" jdbcType="VARCHAR" property="forwardHost" />
+    <result column="mock_requir" jdbcType="VARCHAR" property="mockRequir" />
+    <result column="mock_response" jdbcType="VARCHAR" property="mockResponse" />
+    <result column="is_callback" jdbcType="BIT" property="isCallback" />
+    <result column="callback_host" jdbcType="VARCHAR" property="callbackHost" />
+    <result column="callback_path" jdbcType="VARCHAR" property="callbackPath" />
+    <result column="callback_method" jdbcType="VARCHAR" property="callbackMethod" />
+    <result column="sign_type" jdbcType="INTEGER" property="signType" />
+    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="callback_body_type" jdbcType="VARCHAR" property="callbackBodyType" />
+    <result column="callback_headers" jdbcType="VARCHAR" property="callbackHeaders" typeHandler="com.apiProxy.typehandler.ApiHeadersListTypeHandler" />
+    <result column="callback_request_json" jdbcType="VARCHAR" property="callbackRequestJson" typeHandler="com.apiProxy.typehandler.JsonBodyListTypeHandler" />
+    <result column="callback_request_query" jdbcType="VARCHAR" property="callbackRequestQuery" typeHandler="com.apiProxy.typehandler.QueryBodyListTypeHandler" />
+    <result column="callback_request_form" jdbcType="VARCHAR" property="callbackRequestForm" typeHandler="com.apiProxy.typehandler.QueryBodyListTypeHandler" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="creator_uid" jdbcType="INTEGER" property="creatorUid" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackHeadersCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestJsonCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestQueryCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestFormCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackHeadersCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestJsonCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestQueryCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.callbackRequestFormCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler} and #{criterion.secondValue,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, project_id, description, intercept_path, forward_host, mock_requir, mock_response, 
+    is_callback, callback_host, callback_path, callback_method, sign_type, client_secret, 
+    client_id, callback_body_type, callback_headers, callback_request_json, callback_request_query, 
+    callback_request_form, create_time, update_time, creator_uid, status
+  </sql>
+  <select id="selectByExample" parameterType="com.apiProxy.mbg.po.ProxyConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from proxy_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from proxy_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from proxy_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.apiProxy.mbg.po.ProxyConfigExample">
+    delete from proxy_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.apiProxy.mbg.po.ProxyConfig">
+    insert into proxy_config (id, project_id, description, 
+      intercept_path, forward_host, mock_requir, 
+      mock_response, is_callback, callback_host, 
+      callback_path, callback_method, sign_type, 
+      client_secret, client_id, callback_body_type, 
+      callback_headers, 
+      callback_request_json, 
+      callback_request_query, 
+      callback_request_form, 
+      create_time, update_time, creator_uid, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{interceptPath,jdbcType=VARCHAR}, #{forwardHost,jdbcType=VARCHAR}, #{mockRequir,jdbcType=VARCHAR}, 
+      #{mockResponse,jdbcType=VARCHAR}, #{isCallback,jdbcType=BIT}, #{callbackHost,jdbcType=VARCHAR}, 
+      #{callbackPath,jdbcType=VARCHAR}, #{callbackMethod,jdbcType=VARCHAR}, #{signType,jdbcType=INTEGER}, 
+      #{clientSecret,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, #{callbackBodyType,jdbcType=VARCHAR}, 
+      #{callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler}, 
+      #{callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler}, 
+      #{callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}, 
+      #{callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{creatorUid,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.apiProxy.mbg.po.ProxyConfig">
+    insert into proxy_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="interceptPath != null">
+        intercept_path,
+      </if>
+      <if test="forwardHost != null">
+        forward_host,
+      </if>
+      <if test="mockRequir != null">
+        mock_requir,
+      </if>
+      <if test="mockResponse != null">
+        mock_response,
+      </if>
+      <if test="isCallback != null">
+        is_callback,
+      </if>
+      <if test="callbackHost != null">
+        callback_host,
+      </if>
+      <if test="callbackPath != null">
+        callback_path,
+      </if>
+      <if test="callbackMethod != null">
+        callback_method,
+      </if>
+      <if test="signType != null">
+        sign_type,
+      </if>
+      <if test="clientSecret != null">
+        client_secret,
+      </if>
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="callbackBodyType != null">
+        callback_body_type,
+      </if>
+      <if test="callbackHeaders != null">
+        callback_headers,
+      </if>
+      <if test="callbackRequestJson != null">
+        callback_request_json,
+      </if>
+      <if test="callbackRequestQuery != null">
+        callback_request_query,
+      </if>
+      <if test="callbackRequestForm != null">
+        callback_request_form,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="creatorUid != null">
+        creator_uid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="interceptPath != null">
+        #{interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardHost != null">
+        #{forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="mockRequir != null">
+        #{mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="mockResponse != null">
+        #{mockResponse,jdbcType=VARCHAR},
+      </if>
+      <if test="isCallback != null">
+        #{isCallback,jdbcType=BIT},
+      </if>
+      <if test="callbackHost != null">
+        #{callbackHost,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackPath != null">
+        #{callbackPath,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackMethod != null">
+        #{callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="clientSecret != null">
+        #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackBodyType != null">
+        #{callbackBodyType,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackHeaders != null">
+        #{callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler},
+      </if>
+      <if test="callbackRequestJson != null">
+        #{callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler},
+      </if>
+      <if test="callbackRequestQuery != null">
+        #{callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="callbackRequestForm != null">
+        #{callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorUid != null">
+        #{creatorUid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.apiProxy.mbg.po.ProxyConfigExample" resultType="java.lang.Long">
+    select count(*) from proxy_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update proxy_config
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interceptPath != null">
+        intercept_path = #{record.interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forwardHost != null">
+        forward_host = #{record.forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mockRequir != null">
+        mock_requir = #{record.mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mockResponse != null">
+        mock_response = #{record.mockResponse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCallback != null">
+        is_callback = #{record.isCallback,jdbcType=BIT},
+      </if>
+      <if test="record.callbackHost != null">
+        callback_host = #{record.callbackHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackPath != null">
+        callback_path = #{record.callbackPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackMethod != null">
+        callback_method = #{record.callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signType != null">
+        sign_type = #{record.signType,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientSecret != null">
+        client_secret = #{record.clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null">
+        client_id = #{record.clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackBodyType != null">
+        callback_body_type = #{record.callbackBodyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackHeaders != null">
+        callback_headers = #{record.callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler},
+      </if>
+      <if test="record.callbackRequestJson != null">
+        callback_request_json = #{record.callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler},
+      </if>
+      <if test="record.callbackRequestQuery != null">
+        callback_request_query = #{record.callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="record.callbackRequestForm != null">
+        callback_request_form = #{record.callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creatorUid != null">
+        creator_uid = #{record.creatorUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update proxy_config
+    set id = #{record.id,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      intercept_path = #{record.interceptPath,jdbcType=VARCHAR},
+      forward_host = #{record.forwardHost,jdbcType=VARCHAR},
+      mock_requir = #{record.mockRequir,jdbcType=VARCHAR},
+      mock_response = #{record.mockResponse,jdbcType=VARCHAR},
+      is_callback = #{record.isCallback,jdbcType=BIT},
+      callback_host = #{record.callbackHost,jdbcType=VARCHAR},
+      callback_path = #{record.callbackPath,jdbcType=VARCHAR},
+      callback_method = #{record.callbackMethod,jdbcType=VARCHAR},
+      sign_type = #{record.signType,jdbcType=INTEGER},
+      client_secret = #{record.clientSecret,jdbcType=VARCHAR},
+      client_id = #{record.clientId,jdbcType=VARCHAR},
+      callback_body_type = #{record.callbackBodyType,jdbcType=VARCHAR},
+      callback_headers = #{record.callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler},
+      callback_request_json = #{record.callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler},
+      callback_request_query = #{record.callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      callback_request_form = #{record.callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      creator_uid = #{record.creatorUid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.apiProxy.mbg.po.ProxyConfig">
+    update proxy_config
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="interceptPath != null">
+        intercept_path = #{interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardHost != null">
+        forward_host = #{forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="mockRequir != null">
+        mock_requir = #{mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="mockResponse != null">
+        mock_response = #{mockResponse,jdbcType=VARCHAR},
+      </if>
+      <if test="isCallback != null">
+        is_callback = #{isCallback,jdbcType=BIT},
+      </if>
+      <if test="callbackHost != null">
+        callback_host = #{callbackHost,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackPath != null">
+        callback_path = #{callbackPath,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackMethod != null">
+        callback_method = #{callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        sign_type = #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="clientSecret != null">
+        client_secret = #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackBodyType != null">
+        callback_body_type = #{callbackBodyType,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackHeaders != null">
+        callback_headers = #{callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler},
+      </if>
+      <if test="callbackRequestJson != null">
+        callback_request_json = #{callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler},
+      </if>
+      <if test="callbackRequestQuery != null">
+        callback_request_query = #{callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="callbackRequestForm != null">
+        callback_request_form = #{callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorUid != null">
+        creator_uid = #{creatorUid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.apiProxy.mbg.po.ProxyConfig">
+    update proxy_config
+    set project_id = #{projectId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      intercept_path = #{interceptPath,jdbcType=VARCHAR},
+      forward_host = #{forwardHost,jdbcType=VARCHAR},
+      mock_requir = #{mockRequir,jdbcType=VARCHAR},
+      mock_response = #{mockResponse,jdbcType=VARCHAR},
+      is_callback = #{isCallback,jdbcType=BIT},
+      callback_host = #{callbackHost,jdbcType=VARCHAR},
+      callback_path = #{callbackPath,jdbcType=VARCHAR},
+      callback_method = #{callbackMethod,jdbcType=VARCHAR},
+      sign_type = #{signType,jdbcType=INTEGER},
+      client_secret = #{clientSecret,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      callback_body_type = #{callbackBodyType,jdbcType=VARCHAR},
+      callback_headers = #{callbackHeaders,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.ApiHeadersListTypeHandler},
+      callback_request_json = #{callbackRequestJson,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.JsonBodyListTypeHandler},
+      callback_request_query = #{callbackRequestQuery,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      callback_request_form = #{callbackRequestForm,jdbcType=VARCHAR,typeHandler=com.apiProxy.typehandler.QueryBodyListTypeHandler},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creator_uid = #{creatorUid,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

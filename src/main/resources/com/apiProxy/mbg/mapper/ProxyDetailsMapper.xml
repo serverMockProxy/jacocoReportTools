@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apiProxy.mbg.mapper.ProxyDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.apiProxy.mbg.po.ProxyDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="intercept_path" jdbcType="VARCHAR" property="interceptPath" />
+    <result column="forward_host" jdbcType="VARCHAR" property="forwardHost" />
+    <result column="mock_requir" jdbcType="VARCHAR" property="mockRequir" />
+    <result column="request_json" jdbcType="VARCHAR" property="requestJson" />
+    <result column="response_json" jdbcType="VARCHAR" property="responseJson" />
+    <result column="callback_url" jdbcType="VARCHAR" property="callbackUrl" />
+    <result column="callback_method" jdbcType="VARCHAR" property="callbackMethod" />
+    <result column="callback_request_json" jdbcType="VARCHAR" property="callbackRequestJson" />
+    <result column="callback_response_json" jdbcType="VARCHAR" property="callbackResponseJson" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, project_id, intercept_path, forward_host, mock_requir, request_json, response_json, 
+    callback_url, callback_method, callback_request_json, callback_response_json, description, 
+    creat_time, status
+  </sql>
+  <select id="selectByExample" parameterType="com.apiProxy.mbg.po.ProxyDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from proxy_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from proxy_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from proxy_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.apiProxy.mbg.po.ProxyDetailsExample">
+    delete from proxy_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.apiProxy.mbg.po.ProxyDetails">
+    insert into proxy_details (id, project_id, intercept_path, 
+      forward_host, mock_requir, request_json, 
+      response_json, callback_url, callback_method, 
+      callback_request_json, callback_response_json, 
+      description, creat_time, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{interceptPath,jdbcType=VARCHAR}, 
+      #{forwardHost,jdbcType=VARCHAR}, #{mockRequir,jdbcType=VARCHAR}, #{requestJson,jdbcType=VARCHAR}, 
+      #{responseJson,jdbcType=VARCHAR}, #{callbackUrl,jdbcType=VARCHAR}, #{callbackMethod,jdbcType=VARCHAR}, 
+      #{callbackRequestJson,jdbcType=VARCHAR}, #{callbackResponseJson,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.apiProxy.mbg.po.ProxyDetails">
+    insert into proxy_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="interceptPath != null">
+        intercept_path,
+      </if>
+      <if test="forwardHost != null">
+        forward_host,
+      </if>
+      <if test="mockRequir != null">
+        mock_requir,
+      </if>
+      <if test="requestJson != null">
+        request_json,
+      </if>
+      <if test="responseJson != null">
+        response_json,
+      </if>
+      <if test="callbackUrl != null">
+        callback_url,
+      </if>
+      <if test="callbackMethod != null">
+        callback_method,
+      </if>
+      <if test="callbackRequestJson != null">
+        callback_request_json,
+      </if>
+      <if test="callbackResponseJson != null">
+        callback_response_json,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="interceptPath != null">
+        #{interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardHost != null">
+        #{forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="mockRequir != null">
+        #{mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="requestJson != null">
+        #{requestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="responseJson != null">
+        #{responseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackUrl != null">
+        #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackMethod != null">
+        #{callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackRequestJson != null">
+        #{callbackRequestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackResponseJson != null">
+        #{callbackResponseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.apiProxy.mbg.po.ProxyDetailsExample" resultType="java.lang.Long">
+    select count(*) from proxy_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update proxy_details
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.interceptPath != null">
+        intercept_path = #{record.interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forwardHost != null">
+        forward_host = #{record.forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mockRequir != null">
+        mock_requir = #{record.mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestJson != null">
+        request_json = #{record.requestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.responseJson != null">
+        response_json = #{record.responseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackUrl != null">
+        callback_url = #{record.callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackMethod != null">
+        callback_method = #{record.callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackRequestJson != null">
+        callback_request_json = #{record.callbackRequestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackResponseJson != null">
+        callback_response_json = #{record.callbackResponseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update proxy_details
+    set id = #{record.id,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      intercept_path = #{record.interceptPath,jdbcType=VARCHAR},
+      forward_host = #{record.forwardHost,jdbcType=VARCHAR},
+      mock_requir = #{record.mockRequir,jdbcType=VARCHAR},
+      request_json = #{record.requestJson,jdbcType=VARCHAR},
+      response_json = #{record.responseJson,jdbcType=VARCHAR},
+      callback_url = #{record.callbackUrl,jdbcType=VARCHAR},
+      callback_method = #{record.callbackMethod,jdbcType=VARCHAR},
+      callback_request_json = #{record.callbackRequestJson,jdbcType=VARCHAR},
+      callback_response_json = #{record.callbackResponseJson,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.apiProxy.mbg.po.ProxyDetails">
+    update proxy_details
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="interceptPath != null">
+        intercept_path = #{interceptPath,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardHost != null">
+        forward_host = #{forwardHost,jdbcType=VARCHAR},
+      </if>
+      <if test="mockRequir != null">
+        mock_requir = #{mockRequir,jdbcType=VARCHAR},
+      </if>
+      <if test="requestJson != null">
+        request_json = #{requestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="responseJson != null">
+        response_json = #{responseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackUrl != null">
+        callback_url = #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackMethod != null">
+        callback_method = #{callbackMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackRequestJson != null">
+        callback_request_json = #{callbackRequestJson,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackResponseJson != null">
+        callback_response_json = #{callbackResponseJson,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.apiProxy.mbg.po.ProxyDetails">
+    update proxy_details
+    set project_id = #{projectId,jdbcType=INTEGER},
+      intercept_path = #{interceptPath,jdbcType=VARCHAR},
+      forward_host = #{forwardHost,jdbcType=VARCHAR},
+      mock_requir = #{mockRequir,jdbcType=VARCHAR},
+      request_json = #{requestJson,jdbcType=VARCHAR},
+      response_json = #{responseJson,jdbcType=VARCHAR},
+      callback_url = #{callbackUrl,jdbcType=VARCHAR},
+      callback_method = #{callbackMethod,jdbcType=VARCHAR},
+      callback_request_json = #{callbackRequestJson,jdbcType=VARCHAR},
+      callback_response_json = #{callbackResponseJson,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
