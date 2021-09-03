@@ -22,5 +22,7 @@
 1.serverhost：平台服务地址  
 2.projectname：被测项目在gitlab中的路径，如：https://localhost/test/skatoolsserver  
 3.uploadtime：上传exec文件间隔时间（分钟）
-4.还可以添加其他的jacoco的参数，如include等，具体可以搜一下。         
+4.还可以添加其他的jacoco的参数，如include等，具体可以搜一下。     
+![image](https://user-images.githubusercontent.com/31475053/131990729-8d12f6d7-c2c6-41bc-bed6-493ebdcb5f22.png)
+
      
