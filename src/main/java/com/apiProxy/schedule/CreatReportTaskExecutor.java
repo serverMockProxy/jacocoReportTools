@@ -82,6 +82,7 @@ public class CreatReportTaskExecutor {
 
         if (!CollectionUtils.isEmpty(jacoco.getChildrens())){
             jacoco.getChildrens().stream().forEach(jacoco1 -> {
+                jacoco1.setId(jacoco.getId());
                 cloneAndInstallProject(jacoco1);
             });
         }
