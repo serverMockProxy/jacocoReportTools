@@ -10,7 +10,7 @@
     <includeBaseDirectory>true</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
-            <outputDirectory>/lib</outputDirectory>
+            <outputDirectory>${file.separator}lib</outputDirectory>
             <fileMode>0444</fileMode>
             <excludes>
                 <exclude>${project.groupId}:${project.artifactId}</exclude>
@@ -29,7 +29,7 @@
     <fileSets>
         <fileSet>
             <directory>${project.basedir}/src/main/resources/frontend</directory>  <!-- 包含当前工程的目录src/main/resources文件夹 -->
-            <outputDirectory>/static/frontend</outputDirectory>  <!-- 输出到首层目录 -->
+            <outputDirectory>${file.separator}static${file.separator}frontend</outputDirectory>  <!-- 输出到首层目录 -->
             <fileMode>0777</fileMode> <!-- 所有文件文件权限为777 -->
             <directoryMode>0755</directoryMode> <!-- 所有目录权限为777  -->
         </fileSet>

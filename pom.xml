@@ -120,25 +120,25 @@
             <version>1.3</version>
         </dependency>
         <dependency>
-            <groupId>jacoco.core</groupId>
-            <artifactId>jacoco.core</artifactId>
-            <version>0.8.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/org.jacoco.core.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>jacoco.report</groupId>
-            <artifactId>jacoco.report</artifactId>
-            <version>0.8.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/report.jar</systemPath>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.jacoco/org.jacoco.core -->
-        <dependency>
-            <groupId>org.jacoco</groupId>
+            <groupId>org.jacoco.core</groupId>
             <artifactId>org.jacoco.core</artifactId>
-            <version>0.8.7</version>
+            <version>0.8.4</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/org.jacoco.core-0.8.4.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.jacoco.report</groupId>
+            <artifactId>org.jacoco.report</artifactId>
+            <version>0.8.4</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/org.jacoco.report-0.8.4.jar</systemPath>
+        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.jacoco/org.jacoco.core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.jacoco</groupId>-->
+<!--            <artifactId>org.jacoco.core</artifactId>-->
+<!--            <version>0.8.7</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
         <dependency>
             <groupId>dom4j</groupId>
